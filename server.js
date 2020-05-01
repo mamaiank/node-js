@@ -29,24 +29,65 @@
 //   })
 //   .listen(3001, "127.0.0.1");
 
-const http = require("http");
-const fs = require("fs");
-http
-  .createServer(function (req, res) {
-    let mtStream;
-    if (req.url === "/home" || req.url === "/") {
-      res.writeHead(200, { "Content-Type": "text/html" });
-      mtStream = fs.createReadStream(__dirname + "/" + "index.html");
-    } else if (req.url === "/facebook") {
-      res.writeHead(200, { "Content-Type": "text/html" });
-      mtStream = fs.createReadStream(__dirname + "/" + "facebook.html");
-    } else if (req.url === "/youtube") {
-      res.writeHead(200, { "Content-Type": "text/html" });
-      mtStream = fs.createReadStream(__dirname + "/" + "youtube.html");
-    } else {
-      res.writeHead(404, { "Content-Type": "text/html" });
-      mtStream = fs.createReadStream(__dirname + "/" + "notfound.html");
-    }
-    mtStream.pipe(res);
-  })
-  .listen(3001, "127.0.0.1");
+// const http = require("http");
+// const fs = require("fs");
+// http
+//   .createServer(function (req, res) {
+//     let mtStream;
+//     if (req.url === "/home" || req.url === "/") {
+//       res.writeHead(200, { "Content-Type": "text/html" });
+//       mtStream = fs.createReadStream(__dirname + "/" + "index.html");
+//     } else if (req.url === "/facebook") {
+//       res.writeHead(200, { "Content-Type": "text/html" });
+//       mtStream = fs.createReadStream(__dirname + "/" + "facebook.html");
+//     } else if (req.url === "/youtube") {
+//       res.writeHead(200, { "Content-Type": "text/html" });
+//       mtStream = fs.createReadStream(__dirname + "/" + "youtube.html");
+//     } else {
+//       res.writeHead(404, { "Content-Type": "text/html" });
+//       mtStream = fs.createReadStream(__dirname + "/" + "notfound.html");
+//     }
+//     mtStream.pipe(res);
+//   })
+//   .listen(3001, "127.0.0.1");
+
+// const express = require("express");
+// const routing = express();
+// routing.get("/", function (req, res) {
+//   res.send("<h1>Hello</h1>");
+// });
+// routing.listen(3001);
+
+// const express = require("express");
+// const routing = express();
+// routing.get("/", function (req, res) {
+//   res.send("<h1>Hello</h1>");
+// });
+// routing.get("/profile", function (req, res) {
+//   res.send("<h1>Profile</h1>");
+// });
+// routing.get("/profile/:name", function (req, res) {
+//   res.send("<h1>Hello " + req.params.name + "</h1>");
+// });
+// routing.listen(3001);
+
+// const express = require("express");
+// const routing = express();
+// routing.get("/", function (req, res) {
+//   res.send("<h1>Hello</h1>");
+// });
+// routing.get("/profile", function (req, res) {
+//   res.send("<h1>Profile</h1>");
+// });
+// routing.use("/profile/:name", function (req, res, next) {
+//   console.log("request: " + req.params.name + new Date(), req.method, req.url);
+// });
+// routing.listen(3001);
+
+const express = require("express");
+const routing = express();
+routing.set("view engine", "ejs");
+routing.get("/", function (req, res) {
+  res.render('index');
+});
+routing.listen(3001);
