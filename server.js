@@ -84,10 +84,73 @@
 // });
 // routing.listen(3001);
 
+// const express = require("express");
+// const routing = express();
+// routing.set("view engine", "ejs");
+// routing.get("/", function (req, res) {
+//   res.render("index");
+// });
+// routing.get("/profile", function (req, res) {
+//   const myUser = {
+//     name: "piya",
+//     job: "PG",
+//     age: "28",
+//   };
+//   res.render("profile", { data: myUser });
+// });
+// routing.get("/profile/:name", function (req, res) {
+//   const myUser = {
+//     name: "piya",
+//     job: "PG",
+//     age: "28",
+//   };
+//   res.render("profile", { data: myUser, nickname: req.params.name });
+// });
+// routing.listen(3001);
+
+// const express = require("express");
+// const routing = express();
+// routing.set("view engine", "ejs");
+// routing.use(express.urlencoded());
+// routing.use(express.json());
+// routing.get("/", function (req, res) {
+//   res.render("index");
+// });
+// routing.get("/showForm", function (req, res) {
+//   res.sendFile(__dirname + "/" + "showForm.html");
+// });
+// routing.get("/showData", function (req, res) {
+//   const myUser = {
+//     name: req.query.fname + " " + req.query.lname,
+//     job: "PG",
+//     age: "28",
+//   };
+//   res.render("profile", { data: myUser });
+// });
+// routing.post("/showData", function (req, res) {
+//   const myUser = {
+//     name: req.body.fname + " " + req.body.lname,
+//     job: "PG",
+//     age: "28",
+//   };
+//   res.render("profile", { data: myUser });
+// });
+// routing.listen(3001);
+
 const express = require("express");
 const routing = express();
+const cookie = require("cookie-parser");
 routing.set("view engine", "ejs");
+routing.use(cookie());
 routing.get("/", function (req, res) {
-  res.render('index');
+  res.render("index");
+});
+routing.get("/createCookie", function (req, res) {
+  res.cookie("cookiename", "cookievalue", { maxAge: 900000, httpOnly: true });
+  res.end("create cookie");
+});
+routing.get("/delCookie", function (req, res) {
+  res.clearCookie('cookiename');
+  res.end("delete cookie");
 });
 routing.listen(3001);
